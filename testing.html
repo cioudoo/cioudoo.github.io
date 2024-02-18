@@ -35,7 +35,7 @@ document.getElementById("button").addEventListener("click", function() {
 function writeToGitHub(text) {
     var token = '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';
     var content = btoa(text); // Encode text to base64
-    var apiUrl = 'https://api.github.com/repos/hcr5/cioudoo.github.io/contents/test.txt';
+    var apiUrl = 'https://api.github.com/repos/cioudoo/cioudoo.github.io/contents/test.txt';
     var body = {
         message: 'Update test.txt',
         content: content
