@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Data Display</title>
+</head>
+<body>
+
+<h1>API Data Display</h1>
+
+<div id="apiData"></div>
+
+<script>
+// Function to fetch data from the API
+function fetchData() {
+    // Replace 'YOUR_API_URL' with the actual URL of the API you want to fetch data from
+    fetch('https://api.scratch.mit.edu/users/cioudo/messages/count')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Display the fetched data on the screen
+        displayData(data);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}
+
+// Function to display the fetched data on the screen
+function displayData(data) {
+    const apiDataElement = document.getElementById('apiData');
+    // Clear any existing content
+    apiDataElement.innerHTML = '';
+    // Create a new paragraph element to display the data
+    const paragraph = document.createElement('p');
+    // Convert the data object to a string and set it as the paragraph's text content
+    paragraph.textContent = JSON.stringify(data, null, 2);
+    // Append the paragraph to the div
+    apiDataElement.appendChild(paragraph);
+}
+
+// Call the fetchData function when the page loads
+window.onload = fetchData;
+</script>
+
+</body>
+</html>
