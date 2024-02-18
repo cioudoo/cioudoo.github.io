@@ -1,53 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weird HTML</title>
-    <style>
-        body {
-            background-color: #f0f0f0;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            color: purple;
-        }
-        h1 {
-            text-align: center;
-            font-size: 4em;
-            transform: rotate(-5deg);
-            margin-top: 100px;
-        }
-        p {
-            text-align: justify;
-            font-size: 1.5em;
-            line-height: 2em;
-            margin: 20px 100px;
-            padding: 10px;
-            background-color: rgba(255, 0, 255, 0.2);
-            border-radius: 20px;
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-        }
-        .weird-image {
-            width: 300px;
-            height: 300px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(180deg) scale(1.5);
-            z-index: -1;
-        }
-        .blink {
-            animation: blinker 1s linear infinite;
-        }
-        @keyframes blinker {
-            50% {
-                opacity: 0;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashing Background</title>
+<style>
+  body {
+    animation: flash 0.1s infinite alternate;
+  }
+
+  @keyframes flash {
+    0% {
+      background-color: black;
+    }
+    100% {
+      background-color: white;
+    }
+  }
+</style>
 </head>
 <body>
-    <h1>Welcome to the Weird World of HTML!</h1>
-    <p>This is a paragraph of weird text. It doesn't really say anything useful, but it looks strange, doesn't it? Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fermentum est id turpis dapibus, in posuere odio lacinia. Proin tristique viverra eleifend. Curabitur congue leo eget dolor hendrerit ultricies. Mauris auctor, tortor et mattis fermentum, ex arcu hendrerit ligula, quis lobortis libero quam non enim. In hac habitasse platea dictumst. Duis et ex nec risus tincidunt rutrum.</p>
-    <img class="weird-image blink" src="https://www.fillmurray.com/300/300" alt="Weird Image">
+  <!-- You can add any content here -->
 </body>
 </html>
