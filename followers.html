@@ -22,6 +22,8 @@
             width: 100%;
             padding: 20px;
             background-color: #fff;
+            /* border-radius: 8px; */ /* Removed rounded corners */
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */ /* Removed box shadow */
             overflow: hidden; /* Hide overflow */
         }
         input[type="text"], button {
@@ -55,7 +57,8 @@
             border-radius: 0; /* Remove rounded corners */
         }
         #counter {
-            margin-top: 20px; /* Adjusted margin to move counter to the top */
+            margin-top: 20px; /* Add margin to position the counter text */
+            font-size: 16px; /* Set font size */
         }
     </style>
 </head>
@@ -73,15 +76,16 @@
 <script>
     var loading = false; // Flag to track if loading is in progress
     var stopLoadingFlag = false; // Flag to track if the loading process should be stopped
-    var userCounter = 0; // Counter for fetched users
 
     function loadUsers(type) {
         var username = $('#username').val(); // Utilize jQuery to get the input value
         var page = 1;
         loading = true; // Set loading flag to true
+        var userCounter = 0; // Counter for fetched users
 
         // Clear old followers/following before loading new ones
         $('#result').empty();
+        $('#counter').text(`Followers/Following fetched: 0`); // Reset counter text
 
         function load() {
             if (!stopLoadingFlag) { // Check if loading process should continue
