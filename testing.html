@@ -3,53 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glitched Background</title>
+<title>GitHub File Writer</title>
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .pixel {
-    width: 5px;
-    height: 5px;
-    float: left;
-    animation: glitch 0.05s infinite alternate;
-  }
-
-  @keyframes glitch {
-    0% {
-      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
     }
-    25% {
-      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
+    #textbox {
+        width: 300px;
+        padding: 5px;
+        margin-bottom: 10px;
     }
-    50% {
-      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
+    #button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
     }
-    75% {
-      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
-    }
-    100% {
-      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
-    }
-  }
 </style>
 </head>
 <body>
-  <!-- Create a grid of pixels -->
-  <?php
-    // Number of rows and columns
-    $rows = 100;
-    $cols = 100;
+<h2>Write to GitHub File</h2>
+<textarea id="textbox" placeholder="Enter text..."></textarea><br>
+<button id="button">Save to GitHub</button>
 
-    // Generate pixels
-    for ($i = 0; $i < $rows; $i++) {
-      for ($j = 0; $j < $cols; $j++) {
-        echo "<div class='pixel'></div>";
-      }
-    }
-  ?>
+<script>
+document.getElementById("button").addEventListener("click", function() {
+    var text = document.getElementById("textbox").value;
+    writeToGitHub(text);
+});
+
+function writeToGitHub(text) {
+    var token = 'YOUR_GITHUB_PERSONAL_ACCESS_TOKEN';
+    var content = btoa(text); // Encode text to base64
+    var apiUrl = 'https://api.github.com/repos/YOUR_USERNAME/YOUR_REPOSITORY/contents/test.txt';
+    var body = {
+        message: 'Update test.txt',
+        content: content
+    };
+    fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+            'Authorization': 'token ' + token,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to write file to GitHub.');
+        }
+        alert('File successfully saved to GitHub!');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while saving file to GitHub.');
+    });
+}
+</script>
 </body>
 </html>
