@@ -6,30 +6,50 @@
 <title>Glitched Background</title>
 <style>
   body {
-    background: url('https://source.unsplash.com/random') repeat;
-    animation: glitch 0.01s infinite alternate;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .pixel {
+    width: 5px;
+    height: 5px;
+    float: left;
+    animation: glitch 0.05s infinite alternate;
   }
 
   @keyframes glitch {
     0% {
-      background-position: 0 0;
+      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
     }
     25% {
-      background-position: -100px 100px;
+      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
     }
     50% {
-      background-position: 100px -100px;
+      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
     }
     75% {
-      background-position: -100px -100px;
+      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
     }
     100% {
-      background-position: 100px 100px;
+      background: rgb(<?=rand(0, 255)?>, <?=rand(0, 255)?>, <?=rand(0, 255)?>);
     }
   }
 </style>
 </head>
 <body>
-  
+  <!-- Create a grid of pixels -->
+  <?php
+    // Number of rows and columns
+    $rows = 100;
+    $cols = 100;
+
+    // Generate pixels
+    for ($i = 0; $i < $rows; $i++) {
+      for ($j = 0; $j < $cols; $j++) {
+        echo "<div class='pixel'></div>";
+      }
+    }
+  ?>
 </body>
 </html>
