@@ -21,10 +21,14 @@
             max-width: 400px;
             width: 100%;
             padding: 20px;
-            background-color: #fff;
-            /* border-radius: 8px; */ /* Removed rounded corners */
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */ /* Removed box shadow */
+            background: linear-gradient(to right, #fff, #f0f0f0);
+            border: 2px solid #ddd;
+            border-radius: 6px;
             overflow: hidden; /* Hide overflow */
+            transition: border-color 0.3s;
+        }
+        .container:hover {
+            border-color: #aaa;
         }
         input[type="text"], button {
             width: calc(100% - 24px); /* Adjusted width to account for padding */
@@ -33,6 +37,7 @@
             border-radius: 0; /* Remove rounded corners */
             padding: 12px;
             font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
         }
         input[type="text"] {
             border: 1px solid #ccc;
@@ -42,7 +47,6 @@
             background-color: black;
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
             border: none; /* Remove border */
         }
         button:hover {
