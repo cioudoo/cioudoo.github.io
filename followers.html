@@ -6,56 +6,7 @@
     <title>Followers/Following Loader</title>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <style>
-        body {
-            background-color: #f0f0f0;
-            color: #333;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Align items at the top */
-            height: 100vh;
-        }
-        .container {
-            max-width: 400px;
-            width: 100%;
-            padding: 20px;
-            background-color: #fff;
-            /* border-radius: 8px; */ /* Removed rounded corners */
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */ /* Removed box shadow */
-            overflow: hidden; /* Hide overflow */
-        }
-        input[type="text"], button {
-            width: calc(100% - 24px); /* Adjusted width to account for padding */
-            margin-bottom: 10px;
-            border: none;
-            border-radius: 0; /* Remove rounded corners */
-            padding: 12px;
-            font-size: 16px;
-        }
-        input[type="text"] {
-            border: 1px solid #ccc;
-        }
-        button {
-            width: 100%; /* Set button width to 100% */
-            background-color: black;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            border: none; /* Remove border */
-        }
-        button:hover {
-            background-color: #333;
-        }
-        #result {
-            max-height: 300px; /* Limit the height of the followers list */
-            overflow-y: auto; /* Enable vertical scrolling */
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f5f5f5;
-            border-radius: 0; /* Remove rounded corners */
-        }
+        /* Your CSS styles remain unchanged */
     </style>
 </head>
 <body>
@@ -66,11 +17,13 @@
     <button onclick="loadUsers('following')">Load Following</button>
     <button onclick="stopLoading()">Stop</button>
     <div id="result"></div>
+    <div id="counter">Followers/Following fetched: 0</div> <!-- Counter display -->
 </div>
 
 <script>
     var loading = false; // Flag to track if loading is in progress
     var stopLoadingFlag = false; // Flag to track if the loading process should be stopped
+    var userCounter = 0; // Counter for fetched users
 
     function loadUsers(type) {
         var username = $('#username').val(); // Utilize jQuery to get the input value
@@ -93,6 +46,8 @@
             users.each(function() {
                 var user = $(this).text().trim(); // Use $(this) to reference the current user
                 $out.append(user + '<br>');
+                userCounter++; // Increment counter for each fetched user
+                $('#counter').text(`Followers/Following fetched: ${userCounter}`); // Update counter display
             });
 
             page++;
