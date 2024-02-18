@@ -12,15 +12,12 @@
 <div id="apiData"></div>
 
 <script>
-// Function to fetch data from the API
-function fetchData() {
-    // Replace 'YOUR_API_URL' with the actual URL of the API you want to fetch data from
-    fetch('https://api.scratch.mit.edu/users/cioudo/messages/count')
+fetch('/api')
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.text();
+        return response.json();
     })
     .then(data => {
         // Display the fetched data on the screen
@@ -29,7 +26,6 @@ function fetchData() {
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
-}
 
 // Function to display the fetched data on the screen
 function displayData(data) {
@@ -39,13 +35,10 @@ function displayData(data) {
     // Create a new paragraph element to display the data
     const paragraph = document.createElement('p');
     // Set the paragraph's text content to the fetched data
-    paragraph.textContent = data;
+    paragraph.textContent = JSON.stringify(data, null, 2);
     // Append the paragraph to the div
     apiDataElement.appendChild(paragraph);
 }
-
-// Call the fetchData function when the page loads
-window.onload = fetchData;
 </script>
 
 </body>
