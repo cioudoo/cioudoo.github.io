@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Followers/Following Loader</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+        input[type="text"], button {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            color: #333;
+            padding: 10px;
+            margin: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        input[type="text"] {
+            width: 200px;
+        }
+        button:hover {
+            background-color: #eee;
+            color: #555;
+        }
+        #result {
+            margin: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+        button {
+            border-radius: 0;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<input type="text" id="username" placeholder="Enter Username">
+<button onclick="loadUsers('followers')">Load Followers</button>
+<button onclick="loadUsers('following')">Load Following</button>
+<button onclick="stopLoading()">Stop</button>
+<div id="result"></div>
+
+<script>
+    var loading = false; // Flag to track if loading is in progress
+    var stopLoadingFlag = false; // Flag to track if the loading process should be stopped
+
+    function loadUsers(type) {
+        var username = $('#username').val(); // Utilize jQuery to get the input value
+        var page = 1;
+        loading = true; // Set loading flag to true
+
+        // Clear old followers/following before loading new ones
+        $('#result').empty();
+
+        function load() {
+            if (!stopLoadingFlag) { // Check if loading process should continue
+                $.get(`https://scratch.mit.edu/users/${username}/${type}/?page=${page}`, loaded);
+            }
+        }
+
+        function loaded(data) {
+            var users = $(data).find('span.title > a'); // Use jQuery to find users directly
+            var $out = $('#result');
+
+            users.each(function() {
+                var user = $(this).text().trim(); // Use $(this) to reference the current user
+                $out.append(user + '<br>');
+            });
+
+            page++;
+            if (!stopLoadingFlag) { // Check if loading process should continue
+                load(); // Call load function recursively
+            } else {
+                loading = false; // Set loading flag to false when loading stops
+            }
+        }
+
+        load();
+    }
+
+    function stopLoading() {
+        stopLoadingFlag = true; // Set the flag to stop loading
+    }
+</script>
+
+</body>
+</html>
