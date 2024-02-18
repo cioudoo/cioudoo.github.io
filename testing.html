@@ -3,18 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flashing Background</title>
+<title>Rainbow Flashing Background</title>
 <style>
   body {
-    animation: flash 0.01s infinite alternate;
+    animation: rainbow-flash 0.05s infinite alternate;
   }
 
-  @keyframes flash {
+  @keyframes rainbow-flash {
     0% {
-      background-color: black;
+      background-color: red;
+    }
+    16.666% {
+      background-color: orange;
+    }
+    33.333% {
+      background-color: yellow;
+    }
+    50% {
+      background-color: green;
+    }
+    66.666% {
+      background-color: blue;
+    }
+    83.333% {
+      background-color: indigo;
     }
     100% {
-      background-color: white;
+      background-color: violet;
     }
   }
 </style>
