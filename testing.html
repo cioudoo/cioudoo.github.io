@@ -20,7 +20,7 @@ function fetchData() {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json();
+        return response.text();
     })
     .then(data => {
         // Display the fetched data on the screen
@@ -38,8 +38,8 @@ function displayData(data) {
     apiDataElement.innerHTML = '';
     // Create a new paragraph element to display the data
     const paragraph = document.createElement('p');
-    // Convert the data object to a string and set it as the paragraph's text content
-    paragraph.textContent = JSON.stringify(data, null, 2);
+    // Set the paragraph's text content to the fetched data
+    paragraph.textContent = data;
     // Append the paragraph to the div
     apiDataElement.appendChild(paragraph);
 }
