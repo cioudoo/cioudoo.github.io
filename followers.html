@@ -24,7 +24,7 @@
             background-color: #fff;
             overflow: hidden; /* Hide overflow */
         }
-        input[type="text"], button {
+        input[type="text"], input[type="number"], button {
             width: calc(100% - 24px); /* Adjusted width to account for padding */
             margin-bottom: 10px;
             border: none;
@@ -32,7 +32,7 @@
             padding: 12px;
             font-size: 16px;
         }
-        input[type="text"] {
+        input[type="text"], input[type="number"] {
             border: 1px solid #ccc;
         }
         button {
@@ -63,6 +63,7 @@
 
 <div class="container">
     <input type="text" id="username" placeholder="Enter Username">
+    <input type="number" id="startPage" placeholder="Starting Page Number">
     <button onclick="loadUsers('followers')">Load Followers</button>
     <button onclick="loadUsers('following')">Load Following</button>
     <div id="counter">Followers/Following fetched: 0</div> <!-- Counter display -->
@@ -75,7 +76,8 @@
 
     function loadUsers(type) {
         var username = $('#username').val(); // Utilize jQuery to get the input value
-        var page = 1;
+        var startPage = $('#startPage').val(); // Get the starting page number
+        var page = startPage ? parseInt(startPage) : 1; // Convert to integer, default to 1 if not provided
         userCounter = 0; // Reset counter
         loading = true; // Set loading flag to true
 
