@@ -3,42 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>API Data Display</title>
+<title>Colorful Text Changer</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+  }
+  #text-container {
+    margin-top: 50px;
+  }
+  #color-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
 
-<h1>API Data Display</h1>
+<h1>Make Your Day Colorful!</h1>
 
-<div id="apiData"></div>
+<div id="text-container">
+  <p>Click the button below to change the color of this text!</p>
+  <button id="color-button" onclick="changeColor()">Change Color</button>
+  <p id="colorful-text">Life is like a cup of coffee: bitter, dark, and too hot to handle sometimes!</p>
+</div>
 
 <script>
-fetch('/api')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Display the fetched data on the screen
-        displayData(data);
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
+  const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#008000', '#800080', '#000000'];
 
-// Function to display the fetched data on the screen
-function displayData(data) {
-    const apiDataElement = document.getElementById('apiData');
-    // Clear any existing content
-    apiDataElement.innerHTML = '';
-    // Create a new paragraph element to display the data
-    const paragraph = document.createElement('p');
-    // Set the paragraph's text content to the fetched data
-    paragraph.textContent = JSON.stringify(data, null, 2);
-    // Append the paragraph to the div
-    apiDataElement.appendChild(paragraph);
-}
+  function changeColor() {
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    const colorfulText = document.getElementById("colorful-text");
+    colorfulText.style.color = colors[randomIndex];
+  }
 </script>
 
 </body>
