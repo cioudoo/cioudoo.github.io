@@ -7,7 +7,7 @@
 <style>
   body {
     background: url('https://source.unsplash.com/random') repeat;
-    animation: glitch 0.1s infinite alternate;
+    animation: glitch 0.025s infinite alternate;
   }
 
   @keyframes glitch {
@@ -15,16 +15,16 @@
       background-position: 0 0;
     }
     25% {
-      background-position: 5px 5px;
+      background-position: -20px 20px;
     }
     50% {
-      background-position: -5px -5px;
+      background-position: 20px -20px;
     }
     75% {
-      background-position: 5px -5px;
+      background-position: -20px -20px;
     }
     100% {
-      background-position: -5px 5px;
+      background-position: 20px 20px;
     }
   }
 </style>
