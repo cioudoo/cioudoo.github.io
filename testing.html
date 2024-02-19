@@ -81,7 +81,7 @@
         $('#result').empty();
 
         function load() {
-            $.get(`https://scratch.mit.edu/studios/${username}`, loaded);
+            $.get(`https://scratch.mit.edu/studios/${username}/curators`, loaded);
         }
 
         function loaded(data) {
