@@ -29,8 +29,22 @@
             fetch('https://scratch.mit.edu/studios/' + studioID + '/curators')
                 .then(response => response.text())
                 .then(data => {
-                    // Assuming the data returned is HTML, you might need to parse it accordingly
-                    curatorsListDiv.innerHTML = data;
+                    // Parse the HTML data to extract curator usernames
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(data, 'text/html');
+                    var curators = doc.querySelectorAll('.avatar a');
+                    var curatorsList = document.createElement('ul');
+
+                    // Append each curator to the list
+                    curators.forEach(curator => {
+                        var curatorName = curator.textContent.trim();
+                        var curatorListItem = document.createElement('li');
+                        curatorListItem.textContent = curatorName;
+                        curatorsList.appendChild(curatorListItem);
+                    });
+
+                    // Display the list of curators
+                    curatorsListDiv.appendChild(curatorsList);
                 })
                 .catch(error => {
                     curatorsListDiv.innerHTML = 'Error fetching curators. Please try again.';
