@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studio Curators Finder</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
     <h1>Find Curators of a Studio</h1>
@@ -19,36 +20,32 @@
 
     <script>
         function getCurators() {
-            var studioID = document.getElementById('studioID').value;
-            var curatorsListDiv = document.getElementById('curatorsList');
+            var studioID = $('#studioID').val();
+            var curatorsListDiv = $('#curatorsList');
 
             // Clear previous results
-            curatorsListDiv.innerHTML = '';
+            curatorsListDiv.empty();
 
             // Fetch curators using provided studioID
-            fetch('https://scratch.mit.edu/studios/' + studioID + '/curators')
-                .then(response => response.text())
-                .then(data => {
+            $.get('https://scratch.mit.edu/studios/' + studioID + '/curators')
+                .done(function(data) {
                     // Parse the HTML data to extract curator usernames
-                    var parser = new DOMParser();
-                    var doc = parser.parseFromString(data, 'text/html');
-                    var curators = doc.querySelectorAll('.avatar a');
-                    var curatorsList = document.createElement('ul');
+                    var curators = $(data).find('.avatar a');
+                    var curatorsList = $('<ul></ul>');
 
                     // Append each curator to the list
-                    curators.forEach(curator => {
-                        var curatorName = curator.textContent.trim();
-                        var curatorListItem = document.createElement('li');
-                        curatorListItem.textContent = curatorName;
-                        curatorsList.appendChild(curatorListItem);
+                    curators.each(function() {
+                        var curatorName = $(this).text().trim();
+                        var curatorListItem = $('<li></li>').text(curatorName);
+                        curatorsList.append(curatorListItem);
                     });
 
                     // Display the list of curators
-                    curatorsListDiv.appendChild(curatorsList);
+                    curatorsListDiv.append(curatorsList);
                 })
-                .catch(error => {
-                    curatorsListDiv.innerHTML = 'Error fetching curators. Please try again.';
-                    console.error('Error:', error);
+                .fail(function() {
+                    curatorsListDiv.html('Error fetching curators. Please try again.');
+                    console.error('Error fetching curators');
                 });
         }
     </script>
