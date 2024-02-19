@@ -1,53 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Studio Curators Finder</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src='http://code.jquery.com/jquery-latest.min.js'></script>
+<script>
+
+usr = input("Username")
+
+var username = usr;
+var page=1;
+
+function load( e ) {
+	$.get( "http://scratch.mit.edu/users/" + username + "/followers/?page=1", loaded );
+}
+
+function loaded( data ) {
+	var $dom = $( data );
+	var $users = $dom.find('span.title').children();
+	var $out = $('#result');
+	
+	for (var i=0; i<$users.length; i++) {
+		var user = $users[i].text.trim();
+		$out.prepend( user+'<br>' );
+	}
+
+	page++;
+	$.get( "http://scratch.mit.edu/users/" + username + "/followers/?page="+page, loaded );
+};
+
+</script>
 </head>
-<body>
-    <h1>Find Curators of a Studio</h1>
-    <form id="studioForm">
-        <label for="studioID">Enter Studio ID:</label>
-        <input type="text" id="studioID" name="studioID">
-        <button type="button" onclick="getCurators()">Get Curators</button>
-    </form>
-
-    <div id="curatorsList">
-        <!-- Curators will be displayed here -->
-    </div>
-
-    <script>
-        function getCurators() {
-            var studioID = $('#studioID').val();
-            var curatorsListDiv = $('#curatorsList');
-
-            // Clear previous results
-            curatorsListDiv.empty();
-
-            // Fetch curators using provided studioID
-            $.get('https://scratch.mit.edu/studios/' + studioID + '/curators')
-                .done(function(data) {
-                    // Parse the HTML data to extract curator usernames
-                    var curators = $(data).find('.avatar a');
-                    var curatorsList = $('<ul></ul>');
-
-                    // Append each curator to the list
-                    curators.each(function() {
-                        var curatorName = $(this).text().trim();
-                        var curatorListItem = $('<li></li>').text(curatorName);
-                        curatorsList.append(curatorListItem);
-                    });
-
-                    // Display the list of curators
-                    curatorsListDiv.append(curatorsList);
-                })
-                .fail(function() {
-                    curatorsListDiv.html('Error fetching curators. Please try again.');
-                    console.error('Error fetching curators');
-                });
-        }
-    </script>
+<body onload="load(event);">
+<div id='result'></div>
 </body>
 </html>
